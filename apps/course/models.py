@@ -24,7 +24,7 @@ class Module(models.Model):
     title = models.CharField("Name of Module", max_length=255)
     description = RichTextField()
     duration = models.DateField("Duration")
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course,related_name="moduless" ,on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Module"
@@ -45,23 +45,24 @@ class Lesson(models.Model):
     _type = models.CharField(max_length=255, verbose_name="Type of lesson", choices=LessonTypes.choices,
                              default=LessonTypes.DOCUMENT)
     body = RichTextField(null=True, blank=True)
-    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name="lessons")
+    module = models.ForeignKey(Module,on_delete=models.CASCADE, related_name="lessons")
 
 
 class CourseReview(models.Model):
     class Rating(models.TextChoices):
         R1 = "1", "1"
         R2 = "2", "2"
-        R3 = "3" ,"3"
+        R3 = "3", "3"
         R4 = "4", "4"
-        R5  ="5", "5"
+        R5 = "5", "5"
 
-    user =  models.ForeignKey(get_user_model(), on_delete=models.SET_NULL,null=True,blank=True)
-    # course= models.ForeignKey(Course, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,related_name="ratings",null=True,blank=True)
     # modules = models.ForeignKey(Module,on_delete=models.CASCADE)
-    comment=RichTextField()
-    rating  =  models.CharField(choices=Rating.choices,default=Rating.R5 , max_length=6)
+    comment = RichTextField()
+    rating = models.CharField(choices=Rating.choices, default=Rating.R5, max_length=6)
     is_confirmed = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = "Comment of course"
         verbose_name_plural = "Comment of courses"

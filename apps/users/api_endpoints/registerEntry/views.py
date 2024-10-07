@@ -33,6 +33,7 @@ class RegisterEntryAPIView(APIView):
                 }
             )
             cache.set(cache_key, code, 60)
+            print(code)
             return Response({"success": True, "message": "We have sent an SMS."})
 
         return Response({"success":False, "errors":serializer.errors})

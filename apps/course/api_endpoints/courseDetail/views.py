@@ -1,7 +1,9 @@
 from apps.course.models import Course
-from rest_framework.generics import ListAPIView
-from .serializers import *
+from rest_framework.generics import RetrieveAPIView
+from .serializers import CourseDetailSerializer
 
-class CourseDetailApiView():
-    pass
+class CourseDetailApiView(RetrieveAPIView):
+    serializer_class = CourseDetailSerializer
+    queryset = Course
+
 

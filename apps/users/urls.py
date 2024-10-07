@@ -12,7 +12,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     #loginb
     path("login-request/", LoginRequestAPIView.as_view(), name = 'login-request'),
-    path("login-verify/", LoginVerifyAPIView.as_view(),name = 'login-verify'),
+        path("login-verify/", LoginVerifyAPIView.as_view(),name = 'login-verify'),
 
     #register
     path("register-entry/", RegisterEntryAPIView.as_view(), name='register-entry'),
